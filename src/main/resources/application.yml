@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: alert-system
+  profiles:
+    active: dev
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: UTC
+
+server:
+  port: 8083
+  servlet:
+    context-path: /api/v1
+
+cors:
+  allowed-origins: http://localhost:3003,http://10.2.5.11:3003,http://ui-service:80
+  
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+
+
+
+
+
