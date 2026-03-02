@@ -51,6 +51,9 @@ public class Alert {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "source")
+    private String source;
+
     @Column(name = "processed_at")
     private LocalDateTime processedAt;
 }
