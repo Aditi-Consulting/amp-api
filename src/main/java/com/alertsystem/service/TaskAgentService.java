@@ -29,14 +29,14 @@ public class TaskAgentService {
     }
 
     public TaskAgentResponse getTaskAgentByAlertId(Long alertId) {
-        TaskAgent taskAgent = taskAgentRepository.findTopByTaskAgentAlertIdOrderByTaskAgentStartTimeDesc(alertId)
+        TaskAgent taskAgent = taskAgentRepository.findTopByTaskAgentAlertIdOrderByIdDesc(alertId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task agent not found for alert ID: " + alertId));
 
         return mapToResponse(taskAgent);
     }
 
     public List<TaskAgentResponse> getAllTaskAgentsByAlertId(Long alertId) {
-        List<TaskAgent> taskAgents = taskAgentRepository.findByTaskAgentAlertIdOrderByTaskAgentStartTimeDesc(alertId);
+        List<TaskAgent> taskAgents = taskAgentRepository.findByTaskAgentAlertIdOrderByIdDesc(alertId);
 
         if (taskAgents.isEmpty()) {
             throw new ResourceNotFoundException("No task agents found for alert ID: " + alertId);

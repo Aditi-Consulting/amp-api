@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/client")
 @RequiredArgsConstructor
@@ -42,5 +45,20 @@ public class ClientController {
         log.info("Resolution completed with status: {}", response.getStatusCode());
 
         return response;
+    }
+
+    @PostMapping("/trigger-agent-by-source")
+    @Operation(summary = "Trigger appropriate agent based on alert source")
+    public ResponseEntity<Map<String, Object>> triggerAgentBySource(@RequestParam("alertId") Long alertId) {
+        log.info("Received request to trigger agent by source for alertId: {}", alertId);
+        
+        ResponseEntity<String> agentResponse = clientService.triggerAgentBySource(alertId);
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("alertId", alertId);
+        response.put("agentStatus", agentResponse.getStatusCode().value());
+        response.put("agentResponse", agentResponse.getBody());
+        
+        return ResponseEntity.status(agentResponse.getStatusCode()).body(response);
     }
 }

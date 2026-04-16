@@ -2,6 +2,7 @@ package com.alertsystem.service;
 
 import com.alertsystem.entity.Alert;
 import com.alertsystem.exception.AlertAlreadyExistsException;
+import com.alertsystem.exception.ResourceNotFoundException;
 import com.alertsystem.repository.AlertRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -72,6 +73,16 @@ public class AlertService {
         Alert alert = alertRepository.findById(id).orElseThrow();
         alert.setStatus(status);
         alert.setProcessedAt(LocalDateTime.now());
+        return alertRepository.save(alert);
+    }
+
+    @Transactional
+    public Alert retryAlert(Long alertId) {
+        Alert alert = alertRepository.findById(alertId)
+                .orElseThrow(() -> new ResourceNotFoundException("Alert not found with id: " + alertId));
+        
+        alert.setStatus("RETRY_PENDING");
+
         return alertRepository.save(alert);
     }
 }

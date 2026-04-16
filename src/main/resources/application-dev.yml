@@ -19,6 +19,13 @@ external:
       url: http://localhost:5000/invoke
     resolution:
       url: http://127.0.0.1:5001/trigger-agent
+    agents:
+      kubernetes:
+        url: http://task-agent:5001/trigger-agent
+      splunk:
+        url: http://splunk-agent:5004/api/v1/splunk-agent
+      servicenow:
+        url: http://device-agent:8888/api/v1/unlock
 
 logging:
   level:

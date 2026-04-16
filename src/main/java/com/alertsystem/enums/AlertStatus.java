@@ -4,5 +4,6 @@ public enum AlertStatus {
     PENDING_APPROVAL,
     IN_PROGRESS,
     RESOLVED,
-    FAILED
+    FAILED,
+    RETRY_PENDING
 }

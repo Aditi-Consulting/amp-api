@@ -41,6 +41,12 @@ public class AlertController {
         return ResponseEntity.ok(updated);
     }
 
+    @PostMapping("/{id}/retry")
+    public ResponseEntity<Alert> retryAlert(@PathVariable Long id) {
+        Alert updated = alertService.retryAlert(id);
+        return ResponseEntity.ok(updated);
+    }
+
     @GetMapping("/{id}/resolution")
     public ResponseEntity<Resolution> getResolution(@PathVariable Long id) {
         Resolution resolution = resolutionService.getResolutionForAlert(id);

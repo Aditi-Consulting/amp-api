@@ -9,6 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface TaskAgentRepository extends JpaRepository<TaskAgent, Long> {
-    Optional<TaskAgent> findTopByTaskAgentAlertIdOrderByTaskAgentStartTimeDesc(Long alertId);
-    List<TaskAgent> findByTaskAgentAlertIdOrderByTaskAgentStartTimeDesc(Long alertId);
+    // Get latest record by ID (most reliable - uses auto-increment)
+    Optional<TaskAgent> findTopByTaskAgentAlertIdOrderByIdDesc(Long alertId);
+    
+    // Get all records sorted by ID descending (newest first)
+    List<TaskAgent> findByTaskAgentAlertIdOrderByIdDesc(Long alertId);
 }
